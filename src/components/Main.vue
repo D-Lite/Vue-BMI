@@ -7,7 +7,7 @@
                 </p>
             </div>
             <div class="topbody w-full overflow-hidden">
-                <p class="text-center">
+                <p class="text-center break-normal md:break-all">
                     The BMI is a convenient rule of thumb used to broadly categorize a person as underweight, <br>
                     normal weight, overweight, or obese based on tissue mass (muscle, fat, and bone) and height. <br>
                     Commonly accepted BMI ranges are underweight (under 18.5 kg/m2), normal weight (18.5 to 25), <br>
@@ -30,6 +30,15 @@
         <div class="bodied w-full overflow-hidden">
             <Calcspace />
         </div>
+            <div class="container max-w-sm w-full mx-auto px-6  ">
+        <div class="  border-gray-300 flex flex-col items-center">
+            <div class="sm:w-3/3 text-center py-2">
+                <p class="text-sm text-blue-700 font-bold mb-2">
+                    With <i style="color: red; font-size: 20px"> ♥️ </i> from Daniel....
+                </p>
+            </div>
+        </div>
+    </div>
     </div>
 </template>
 

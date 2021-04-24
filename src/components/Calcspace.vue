@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center h-screen items-center bg-red-100">
-    <div class='flex max-w-sm w-full h-64 justify-center bg-white shadow-md rounded-lg overflow-hidden mx-auto flex flex-col p-5'>
+    <div class='flex max-w-sm w-full h-70 justify-center bg-white shadow-md rounded-lg overflow-hidden mx-auto flex-col p-5'>
         <h3 class="text-2xl font-bold mb-4">BMI</h3>
     <!-- This is the input component -->
     <div class="relative h-10 input-component mb-5">
@@ -17,11 +17,26 @@
       </label>
         <div class="absolute z-10 inset-y-0 right-0 flex items-center py-0"> 
             <label for="hmetric" class="sr-only">Height</label>
-            <select id="hmetric" name="metric" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
-                <option>metres</option>
-                <option>Feet</option>
+            <select id="hmetric" v-model="heightoperand" name="metric" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+                <option>Metres</option>
+                <option>Centimetres</option>
             </select>
         </div>
+    </div>
+
+    <!-- Age INput -->
+    <div class="relative h-10 input-component mb-5">
+      <input
+        id="inage"
+        type="text"
+        name="age"
+        v-model="age"
+        class="h-full w-full border-gray-300 px-2 transition-all border-blue rounded-sm"
+      />
+    
+      <label for="name" class="absolute left-2 transition-all bg-white px-1">
+        Age
+      </label>
     </div>
 
     <!-- This is the input component -->
@@ -38,7 +53,7 @@
       </label>
       <div class="absolute z-10 inset-y-0 right-0 flex items-center py-0"> 
             <label for="wmetric" class="sr-only">Width</label>
-            <select id="hmetric" name="metric" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+            <select id="wmetric" v-model="weightoperand" name="metric" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
                 <option>Kg</option>
                 <option>Pounds</option>
             </select>
@@ -55,15 +70,19 @@
         Check
     </button>
 
-<!-- Results -->
-    <div id = "result-container" v-if = "checkClicked" class="p-2">
-            <h2 id = "result" v-if = "!loading">
-                <span id = "from-span">{{width}} {{height}}</span> = <span id = "to-span">{{result}} </span>
+    <div id = "result-container" v-if = "checkClicked" class="p-2 m-4 flex justify-center text-left items-center py-3 bg-blue-900">
+            <h2 id = "result" v-if = "!loading" >
+                <span class="m-1 text-2l text-blue-100 font-semibold " >Your BMI: {{posts.bmi}} </span><br/>
+                <span class="m-1 text-2l text-blue-100 font-semibold ">Healthy BMI Range: {{posts.healthy_bmi_range}}</span> <br/>
+                <span class="m-1 text-2l text-blue-100 font-semibold ">Diagnosis: {{posts.health}} </span>
             </h2>
             <h2 v-else>Loading...</h2>
-        </div>
-        
     </div>
+
+    <!-- <div class="text-2xl font-bold mb-4">{{posts}}sssssss</div> -->
+
+    </div>
+
     </div>
 <!-- </div> -->
 </template>
@@ -93,16 +112,21 @@ input:focus {
 </style>
 
 <script>
+import axios from "axios";
 
 export default {
     name: "Calculator",
    
     data(){
        return {
-           apiKey: 'env.APIKEY',
+           apiKey: process.env.VUE_APP_APIKEY,
            height: '',
+           heightoperand: '',
+           age: '',
            width: '',
+           weightoperand: '',
            result: '',
+           posts: null,
            checkClicked: '',
            loading: false,
        }
@@ -122,30 +146,50 @@ export default {
                 alert("Please check your inputs and try again")
             }
             else {
-                this.loading = true
-                let uri = 'https://body-calculator.p.rapidapi.com/bmi?height=' + this.height + '&width=' + this.width 
-                fetch(uri, {
-                    "method": "GET",
-                    "headers": {
-                        'content-type': 'application/json',
-                        'x-rapidapi-key': 'b16ac3b4cfmsh9ab84141d9b045ap1d084ejsnd68acf76a7a9',
-                        'x-rapidapi-host': 'body-calculator.p.rapidapi.com'
+                if (this.heightoperand == "Metres") {
+                    console.log('Metres Selected');
+                    this.height = this.height * 100
+                    this.heightoperand = "Centimetres";
+                    console.log(this.height)
+                }
+                else {
+                    console.log("Centimetres");
+                    this.height
+                    console.log(this.height)
+                }
+
+                if (this.weightoperand == "Pounds") {
+                    console.log('Pound Selected');
+                    this.width = this.width / 2.205;
+                    this.weightoperand = "Kg";
+                    console.log(this.width)
+                }
+                else {
+                    console.log("Kg");
+                    this.width
+                    console.log(this.width)
+                }
+
+                    this.loading = true
+               const options = {
+                    method: 'GET',
+                    url: 'https://fitness-calculator.p.rapidapi.com/bmi',
+                    params: {age: this.age , weight: this.width , height: this.height},
+                    headers: {
+                        'x-rapidapi-key': 'd6653087d9msh2456f0d2bbc09f9p11a6d4jsn6dd9ea66a670',
+                        'x-rapidapi-host': 'fitness-calculator.p.rapidapi.com'
                     }
-                })
-                .then(response => {
-                    if(response.ok) {
-                        response.json()
-                        .then(response1 => {
-                            this.result = response1.result 
-                            this.loading = false
-                            // this.$store.commit('addToHistory',{height: this.height, width: this.width, amount: this.amount, result: this.result})
-                        })
-                    }
-                })
-                .catch(err => {
-                    alert("There was a problem fetching the results. Please try again." + err)
-                })
-            } 
+                    };
+
+                    axios.request(options).then((response) => {
+                        console.log(response.data);
+                        this.posts = response.data;
+                        // alert(this.posts.bmi)
+                        this.loading = false;
+                    }).catch(function (error) {
+                        console.error(error);
+                    });
+                        } 
         },
         clear() {
             // this.amount = 0
@@ -160,8 +204,13 @@ export default {
         },
         width: function() {
              this.checkClicked = false
-        }
-    },  
+        },
+        post: 'posts'
+
+    },
+    mounted()   {
+        this.posts;
+    }
     
 }
 </script>
