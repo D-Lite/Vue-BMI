@@ -1,13 +1,13 @@
 <template>
-    <div class="main flex flex-wrap overflow-hidden">
-        <div class="top overflow-hidden  md:bg-red-500 sm:to-blue-600">
-            <div class="tophead w-full overflow-hidden">
-                <p class="font-sans text-5xl bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 font-semibold ">
+    <div class="main flex flex-wrap overflow-hidden min-h-screen">
+        <div class="top overflow-hidden">
+            <div class="tophead  w-full overflow-hidden">
+                <p class="font-sans text-4xl md:text-left lg:text-center text-left bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 font-semibold ">
                     Body Mass Index (BMI)
                 </p>
             </div>
             <div class="topbody overflow-hidden">
-                <p class="text-center break-normal md:break-all px-5 py-5 dark:text-gray-100">
+                <p class="lg:text-center break-normal md:break-all text-left px-5 py-5 md:text-left  dark:text-gray-100">
                     The BMI is a convenient rule of thumb used to broadly categorize a person as underweight, <br>
                     normal weight, overweight, or obese based on tissue mass (muscle, fat, and bone) and height. <br>
                     Commonly accepted BMI ranges are underweight (under 18.5 kg/m2), normal weight (18.5 to 25), <br>
@@ -68,7 +68,6 @@ export default {
         margin-top: 180px;
         padding: 20px;
         width: 100vw;
-       
     }
     .topbody {
         margin-top: 30px;
@@ -101,4 +100,17 @@ export default {
         width: 100vw;
         height: 100vh;
     }
+
+    @media only screen and (max-width: 600px) {
+        .top {
+             height: 80vh;
+            margin-top: 50px;
+            padding: 10px;
+            width: 100vw;
+        }
+    }
+
+    @media only screen and (min-width: 600px) {
+
+}
 </style>
