@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center h-screen items-center bg-red-100">
+    <div class="flex justify-center h-screen items-center bg-red-100 dark:bg-gray-400">
     <div class='flex max-w-sm w-full h-70 justify-center bg-white shadow-md rounded-lg overflow-hidden mx-auto flex-col p-5'>
         <h3 class="text-2xl font-bold mb-4">BMI</h3>
     <!-- This is the input component -->
@@ -113,7 +113,7 @@ input:focus {
 
 <script>
 import axios from "axios";
-
+ 
 export default {
     name: "Calculator",
    
