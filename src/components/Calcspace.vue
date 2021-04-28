@@ -71,11 +71,12 @@
     </button>
 
     <div id = "result-container" v-if = "checkClicked" class="p-2 m-4 flex justify-center text-left items-center py-3 bg-blue-900">
-            <h2 id = "result" v-if = "!loading" >
+            <h2 id = "result" v-if = "!loading &&  posts.bmi" >
                 <span class="m-1 text-2l text-blue-100 font-semibold " >Your BMI: {{posts.bmi}} </span><br/>
                 <span class="m-1 text-2l text-blue-100 font-semibold ">Healthy BMI Range: {{posts.healthy_bmi_range}}</span> <br/>
                 <span class="m-1 text-2l text-blue-100 font-semibold ">Diagnosis: {{posts.health}} </span>
             </h2>
+            <h2 v-else-if="!posts.bmi" class="m-1 text-sm text-blue-100 font-semibold ">Ensure values are within medical limits. (130cm - 230cm and 40Kg - 160Kg)</h2>
             <h2 v-else>Loading...</h2>
     </div>
 
@@ -130,7 +131,6 @@ export default {
            posts: null,
            checkClicked: '',
            loading: false,
-           errored: false,
        }
 
     },
@@ -189,8 +189,9 @@ export default {
                         // alert(this.posts.bmi)
                         this.loading = false;
                     }).catch(function (error) {
-                        console.error(error);
-                    });
+                        this.posts = null;
+                        console.log(error);
+                      });
                         } 
         },
         clear() {
@@ -207,7 +208,7 @@ export default {
         width: function() {
              this.checkClicked = false
         },
-        post: 'posts'
+        // post: 'posts'
 
     },
     mounted()   {
