@@ -1,24 +1,11 @@
-# bmi
+# Check yours at https://bodymassindex.vercel.app/
 
-## Project setup
-```
-npm install
-```
+The BMI is a convenient rule of thumb used to broadly categorize a person as underweight,
+normal weight, overweight, or obese based on tissue mass (muscle, fat, and bone) and height.
+Commonly accepted BMI ranges are underweight (under 18.5 kg/m2), normal weight (18.5 to 25),
+overweight (25 to 30), and obese (over 30).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+For any additional features you want to be added, you can pull a request or send a message on TWITTER @fikkyman1
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Thanks,
+Built with VUE

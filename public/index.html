@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>BMI Calculator</title>
   </head>
   <body>
@@ -15,4 +16,12 @@
     <!-- built files will be auto injected -->
   </body>
   <!-- <script src="./../src/script.js"></script> -->
+
+  <script>
+    swal({
+  title: "Important!",
+  text: "Be informed the height range for BMI calculation is 120 - 190 cm and weight range is 50 - 90 Kg! Other input not within the ranges are considered invalid for BMI calculation.",
+  icon: "info",
+});
+    </script>
 </html>

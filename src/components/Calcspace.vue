@@ -48,8 +48,8 @@
         v-model="width"
         class="h-full w-full border-gray-300 px-2 transition-all border-blue rounded-sm"
       />
-      <label for="email" class="absolute left-2 transition-all bg-white px-1">
-        Width
+      <label for="width" class="absolute left-2 transition-all bg-white px-1">
+        Weight
       </label>
       <div class="absolute z-10 inset-y-0 right-0 flex items-center py-0"> 
             <label for="wmetric" class="sr-only">Width</label>
@@ -82,7 +82,7 @@
     <!-- <div class="text-2xl font-bold mb-4">{{posts}}sssssss</div> -->
 
     </div>
-
+ 
     </div>
 <!-- </div> -->
 </template>
@@ -113,7 +113,8 @@ input:focus {
 
 <script>
 import axios from "axios";
- 
+ import "./ErrorHandling"
+
 export default {
     name: "Calculator",
    
@@ -121,14 +122,15 @@ export default {
        return {
            apiKey: process.env.VUE_APP_APIKEY,
            height: '',
-           heightoperand: '',
+           heightoperand: 'Metres',
            age: '',
            width: '',
-           weightoperand: '',
+           weightoperand: 'Kg',
            result: '',
            posts: null,
            checkClicked: '',
            loading: false,
+           errored: false,
        }
 
     },
