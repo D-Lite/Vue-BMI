@@ -184,7 +184,6 @@ export default {
                     };
 
                     axios.request(options).then((response) => {
-                        console.log(response.data);
                         this.posts = response.data;
                         // alert(this.posts.bmi)
                         this.loading = false;
